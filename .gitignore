@@ -1,0 +1,15 @@
+# Build-Artefakte
+*.o
+st
+
+# Backup- und temporäre Dateien
+*.orig
+*.rej
+*.swp
+*.swo
+*~
+*.vanilla
+
+# Patch-Dateien falls vorhanden
+*.diff
+*.patch
