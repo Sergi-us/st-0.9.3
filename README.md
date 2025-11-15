@@ -54,11 +54,11 @@ Für Transparenz wird ein Composite Manager benötigt (`picom`, `xcompmgr`, etc.
 
 ## SARBS Integration
 
-Diese st-Konfiguration ist Teil von [SARBS](https://codeberg.org/Sergi-us/SARBS) und funktioniert am besten im Zusammenspiel mit:
-- [dwm](https://codeberg.org/Sergi-us/dwm)
-- [dmenu](https://codeberg.org/Sergi-us/dmenu)
-- [dwmblocks](https://codeberg.org/Sergi-us/dwmblocks)
-- [dotfiles](https://codeberg.org/Sergi-us/dotfiles)
+Diese st-Konfiguration ist Teil von [SARBS](https://codeberg.org/Sergius/SARBS.git) und funktioniert am besten im Zusammenspiel mit:
+- [dwm](https://github.com/Sergi-us/dwm.git)
+- [dmenu](https://github.com/Sergi-us/dmenu.git)
+- [dwmblocks](https://github.com/Sergi-us/dwmblocks.git)
+- [dotfiles](https://codeberg.org/Sergius/dotfiles.git)
 
 ---
 
