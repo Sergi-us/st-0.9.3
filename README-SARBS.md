@@ -5,13 +5,13 @@ SARBS ist ein effizientes Shell-Skript, das ein voll funktionsfähiges, auf eine
 TODO Vim bezug ergänzen... Die Efficiens der nutzung über die Tastatur ansprechen und die Deutsche tastatur abfucken
 
 Das Installation-Skript zieht zusätzliche Repositories:
-- [dwm](https://github.com/Sergi-us/dwm) (window manager)
-- [dmenu](https://github.com/Sergi-us/dmenu)
-- [dwmblocks](https://github.com/Sergi-us/dwmblocks) (statusbar)
-- [st](https://github.com/Sergi-us/st) (terminal emulator)
-- [surf](https://github.com/Sergi-us/surf)
+- [dwm](https://codeberg.org/Sergi-us/dwm) (window manager)
+- [dmenu](https://codeberg.org/Sergi-us/dmenu)
+- [dwmblocks](https://codeberg.org/Sergi-us/dwmblocks) (statusbar)
+- [st](https://codeberg.org/Sergi-us/st) (terminal emulator)
+- [surf](https://codeberg.org/Sergi-us/surf)
 
-Es werden Programme aus der [progs.csv](https://github.com/Sergi-us/SARBS/blob/main/progs.csv) installiert. Die Konfiguration ist in den [dotfiles](https://github.com/Sergi-us/dotfiles) ...
+Es werden Programme aus der [progs.csv](https://codeberg.org/Sergi-us/SARBS/src/branch/main/progs.csv) installiert. Die Konfiguration ist in den [dotfiles](https://codeberg.org/Sergi-us/dotfiles) ...
 
 ## Philosophie und Grundprinzipien
 

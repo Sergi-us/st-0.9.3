@@ -1,4 +1,4 @@
-# st - simple terminal
+# st - simple terminal (v0.9.3)
 
 Der [suckless terminal (st)](https://st.suckless.org/) mit zusätzlichen Patches und Anpassungen für SARBS.
 
@@ -22,7 +22,7 @@ Der [suckless terminal (st)](https://st.suckless.org/) mit zusätzlichen Patches
 Abhängigkeiten: `xlib` Header-Dateien und `libharfbuzz`
 
 ```sh
-git clone https://github.com/Sergi-us/st
+git clone https://codeberg.org/Sergi-us/st
 cd st
 sudo make install
 ```
@@ -54,11 +54,11 @@ Für Transparenz wird ein Composite Manager benötigt (`picom`, `xcompmgr`, etc.
 
 ## SARBS Integration
 
-Diese st-Konfiguration ist Teil von [SARBS](https://github.com/Sergi-us/SARBS) und funktioniert am besten im Zusammenspiel mit:
-- [dwm](https://github.com/Sergi-us/dwm)
-- [dmenu](https://github.com/Sergi-us/dmenu)
-- [dwmblocks](https://github.com/Sergi-us/dwmblocks)
-- [dotfiles](https://github.com/Sergi-us/dotfiles)
+Diese st-Konfiguration ist Teil von [SARBS](https://codeberg.org/Sergi-us/SARBS) und funktioniert am besten im Zusammenspiel mit:
+- [dwm](https://codeberg.org/Sergi-us/dwm)
+- [dmenu](https://codeberg.org/Sergi-us/dmenu)
+- [dwmblocks](https://codeberg.org/Sergi-us/dwmblocks)
+- [dotfiles](https://codeberg.org/Sergi-us/dotfiles)
 
 ---
 
