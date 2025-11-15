@@ -8,14 +8,13 @@ Der [suckless terminal (st)](https://st.suckless.org/) mit zusätzlichen Patches
 + **Command-Output kopieren** mit `alt-o`
 + **Scrollback** mit `alt-↑/↓`, `alt-pageup/down` oder `shift` beim Scrollen
 + **Vim-Bindings**: `alt-k`/`alt-j` (zeile), `alt-u`/`alt-d` (halbe seite)
-+ **Zoom**: wie Scrollback, aber mit `shift` gedrückt. `alt-home` für Reset
++ **Zoom**: `alt+shift+↑/↓` odeer `j/k`. `alt-home` für Reset
 + **Copy/Paste**: `alt-c` (kopieren), `alt-v` oder `shift-insert` (einfügen)
 + **Transparenz** mit `alt-a`/`alt-s` dynamisch anpassbar
 + **Xresources** und `pywal` Unterstützung für dynamische Farben
-+ Standard [gruvbox](https://github.com/morhetz/gruvbox) Farbschema
-+ **Boxdraw** - bessere Darstellung von Linienzeichen
 + **Ligatures** - Font-Ligaturen Support
 + **Harfbuzz** - verbesserte Font-Rendering
++ **Boxdraw** - bessere Darstellung von Linienzeichen (aktuell deaktiviert, bessere Darstellung der Nerdfond)
 
 ## Installation
 
