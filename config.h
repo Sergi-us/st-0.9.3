@@ -1,119 +1,119 @@
-/* See LICENSE file for copyright and license details. */
+/* Siehe LICENSE-Datei für Urheber- und Lizenzdetails. */
 
 /*
- * appearance
+ * Aussehen
  *
- * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
+ * Schriftart: siehe http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = { "JetBrainsMono NF:style=Light:size=10:antialias=true:autohint=true:hintstyle=hintslight" };
+static char *font = { "JetBrainsMono NF:style=Light:size=10:antialias=true:autohint=false:hintstyle=hintfull" };
 static char *font2[] = { "OpenMoji:size=11:antialias=true:autohint=true" };
-static int borderpx = 4;
+static int borderpx = 0;
 
 /*
- * What program is execed by st depends of these precedence rules:
- * 1: program passed with -e
- * 2: scroll and/or utmp
- * 3: SHELL environment variable
- * 4: value of shell in /etc/passwd
- * 5: value of shell in config.h
+ * Welches Programm von st ausgeführt wird, hängt von diesen Vorrangregeln ab:
+ * 1: Programm übergeben mit -e
+ * 2: scroll und/oder utmp
+ * 3: SHELL-Umgebungsvariable
+ * 4: Wert von shell in /etc/passwd
+ * 5: Wert von shell in config.h
  */
 static char *shell = "/bin/sh";
 char *utmp = NULL;
-/* scroll program: to enable use a string like "scroll" */
+/* Scroll-Programm: zum Aktivieren einen String wie "scroll" verwenden */
 char *scroll = NULL;
 char *stty_args = "stty raw pass8 nl -echo -iexten -cstopb 38400";
 
-/* identification sequence returned in DA and DECID */
+/* Identifikationssequenz, die in DA und DECID zurückgegeben wird */
 char *vtiden = "\033[?6c";
 
-/* Kerning / character bounding-box multipliers */
+/* Kerning / Zeichen-Begrenzungsbox-Multiplikatoren */
 static float cwscale = 1.0;
 static float chscale = 1.0;
 
 /*
- * word delimiter string
+ * Wort-Trennzeichen
  *
- * More advanced example: L" `'\"()[]{}"
+ * Fortgeschritteneres Beispiel: L" `'\"()[]{}"
  */
 wchar_t *worddelimiters = L" ";
 
-/* selection timeouts (in milliseconds) */
+/* Auswahl-Timeouts (in Millisekunden) */
 static unsigned int doubleclicktimeout = 300;
 static unsigned int tripleclicktimeout = 600;
 
-/* alt screens */
+/* Alternative Bildschirme */
 int allowaltscreen = 1;
 
-/* allow certain non-interactive (insecure) window operations such as:
-   setting the clipboard text */
+/* Erlaube bestimmte nicht-interaktive (unsichere) Fensteroperationen wie:
+   Setzen des Zwischenablage-Texts */
 int allowwindowops = 0;
 
 /*
- * draw latency range in ms - from new content/keypress/etc until drawing.
- * within this range, st draws when content stops arriving (idle). mostly it's
- * near minlatency, but it waits longer for slow updates to avoid partial draw.
- * low minlatency will tear/flicker more, as it can "detect" idle too early.
+ * Zeichen-Latenzbereich in ms - von neuem Inhalt/Tastendruck/etc. bis zum Zeichnen.
+ * In diesem Bereich zeichnet st, wenn kein neuer Inhalt mehr ankommt (idle). Meistens liegt
+ * es nahe minlatency, aber es wartet länger bei langsamen Updates, um Teilzeichnungen zu vermeiden.
+ * Niedrige minlatency führt zu mehr Tearing/Flackern, da es "idle" zu früh erkennen kann.
  */
 static double minlatency = 8;
 static double maxlatency = 33;
 
 /*
- * blinking timeout (set to 0 to disable blinking) for the terminal blinking
- * attribute.
+ * Blink-Timeout (auf 0 setzen, um Blinken zu deaktivieren) für das
+ * Terminal-Blink-Attribut.
  */
 static unsigned int blinktimeout = 800;
 
 /*
- * thickness of underline and bar cursors
+ * Dicke von Unterstrich- und Balken-Cursorn
  */
 static unsigned int cursorthickness = 2;
 
 /*
- * 1: render most of the lines/blocks characters without using the font for
- *    perfect alignment between cells (U2500 - U259F except dashes/diagonals).
- *    Bold affects lines thickness if boxdraw_bold is not 0. Italic is ignored.
- * 0: disable (render all U25XX glyphs normally from the font).
+ * 1: Rendert die meisten Linien-/Block-Zeichen ohne Schriftart für
+ *    perfekte Ausrichtung zwischen Zellen (U2500 - U259F außer Striche/Diagonalen).
+ *    Fett beeinflusst Liniendicke, wenn boxdraw_bold nicht 0 ist. Kursiv wird ignoriert.
+ * 0: Deaktivieren (alle U25XX-Glyphen normal aus der Schriftart rendern).
  */
 const int boxdraw = 0;
 const int boxdraw_bold = 0;
 
-/* braille (U28XX):  1: render as adjacent "pixels",  0: use font */
+/* Braille (U28XX):  1: als benachbarte "Pixel" rendern,  0: Schriftart verwenden */
 const int boxdraw_braille = 0;
 
 /*
- * bell volume. It must be a value between -100 and 100. Use 0 for disabling
- * it
+ * Klingellautstärke. Muss ein Wert zwischen -100 und 100 sein. Verwende 0 zum
+ * Deaktivieren.
  */
 static int bellvolume = 0;
 
-/* default TERM value */
+/* Standard-TERM-Wert */
 char *termname = "st-256color";
 
 /*
- * spaces per tab
+ * Leerzeichen pro Tab
  *
- * When you are changing this value, don't forget to adapt the »it« value in
- * the st.info and appropriately install the st.info in the environment where
- * you use this st version.
+ * Wenn du diesen Wert änderst, vergiss nicht, den »it«-Wert in der
+ * st.info anzupassen und die st.info in der Umgebung, in der du diese
+ * st-Version verwendest, entsprechend zu installieren.
  *
  *	it#$tabspaces,
  *
- * Secondly make sure your kernel is not expanding tabs. When running `stty
- * -a` »tab0« should appear. You can tell the terminal to not expand tabs by
- *  running following command:
+ * Zweitens stelle sicher, dass dein Kernel keine Tabs expandiert. Beim Ausführen
+ * von `stty -a` sollte »tab0« erscheinen. Du kannst dem Terminal sagen, Tabs nicht
+ * zu expandieren, indem du folgenden Befehl ausführst:
  *
  *	stty tabs
  */
 unsigned int tabspaces = 8;
 
-/* bg opacity */
+/* Hintergrund-Deckkraft */
 float alpha = 0.8;
 float alphaOffset = 0.0;
 float alphaUnfocus;
 
-/* Terminal colors (16 first used in escape sequence) */
+/* Terminal-Farben (erste 16 werden in Escape-Sequenzen verwendet) */
 static const char *colorname[] = {
-	"#282828", /* hard contrast: #1d2021 / soft contrast: #32302f */
+	"#282828", /* harter Kontrast: #1d2021 / weicher Kontrast: #32302f */
 	"#cc241d",
 	"#98971a",
 	"#d79921",
@@ -130,17 +130,17 @@ static const char *colorname[] = {
 	"#8ec07c",
 	"#ebdbb2",
 	[255] = 0,
-	/* more colors can be added after 255 to use with DefaultXX */
-	"#add8e6", /* 256 -> cursor */
-	"#555555", /* 257 -> rev cursor*/
-	"#282828", /* 258 -> bg */
-	"#ebdbb2", /* 259 -> fg */
+	/* weitere Farben können nach 255 hinzugefügt werden zur Verwendung mit DefaultXX */
+	"#add8e6", /* 256 -> Cursor */
+	"#555555", /* 257 -> umgekehrter Cursor */
+	"#282828", /* 258 -> Hintergrund */
+	"#ebdbb2", /* 259 -> Vordergrund */
 };
 
 
 /*
- * Default colors (colorname index)
- * foreground, background, cursor, reverse cursor
+ * Standardfarben (colorname-Index)
+ * Vordergrund, Hintergrund, Cursor, umgekehrter Cursor
  */
 unsigned int defaultfg = 259;
 unsigned int defaultbg = 258;
@@ -149,43 +149,43 @@ unsigned int defaultrcs = 257;
 unsigned int background = 258;
 
 /*
- * Default shape of cursor
+ * Standardform des Cursors
  * 2: Block ("█")
- * 4: Underline ("_")
- * 6: Bar ("|")
- * 7: Snowman ("☃")
+ * 4: Unterstrich ("_")
+ * 6: Balken ("|")
+ * 7: Schneemann ("☃")
  */
 static unsigned int cursorshape = 2;
 
 /*
- * Default columns and rows numbers
+ * Standard-Spalten- und Zeilenanzahl
  */
 
 static unsigned int cols = 80;
 static unsigned int rows = 24;
 
 /*
- * Default colour and shape of the mouse cursor
+ * Standardfarbe und -form des Maus-Cursors
  */
 static unsigned int mouseshape = XC_xterm;
 static unsigned int mousefg = 7;
 static unsigned int mousebg = 0;
 
 /*
- * Color used to display font attributes when fontconfig selected a font which
- * doesn't match the ones requested.
+ * Farbe zur Anzeige von Schriftartattributen, wenn fontconfig eine Schriftart
+ * gewählt hat, die nicht den angeforderten entspricht.
  */
 static unsigned int defaultattr = 11;
 
 /*
- * Force mouse select/shortcuts while mask is active (when MODE_MOUSE is set).
- * Note that if you want to use ShiftMask with selmasks, set this to an other
- * modifier, set to 0 to not use it.
+ * Erzwinge Maus-Auswahl/Shortcuts während Maske aktiv ist (wenn MODE_MOUSE gesetzt ist).
+ * Beachte: Wenn du ShiftMask mit selmasks verwenden willst, setze dies auf einen anderen
+ * Modifier, setze auf 0, um es nicht zu verwenden.
  */
 static uint forcemousemod = ShiftMask;
 
 /*
- * Xresources preferences to load at startup
+ * Xresources-Einstellungen, die beim Start geladen werden
  */
 ResourcePref resources[] = {
 		{ "font",         STRING,  &font },
@@ -224,11 +224,11 @@ ResourcePref resources[] = {
 };
 
 /*
- * Internal mouse shortcuts.
- * Beware that overloading Button1 will disable the selection.
+ * Interne Maus-Shortcuts.
+ * Achtung: Das Überladen von Button1 deaktiviert die Auswahl.
  */
 static MouseShortcut mshortcuts[] = {
-	/* mask                 button   function        argument       release */
+	/* Maske                Taste    Funktion        Argument       Release */
 	{ XK_NO_MOD,            Button4, kscrollup,      {.i = 1}           },
 	{ XK_NO_MOD,            Button5, kscrolldown,    {.i = 1}           },
 	{ XK_ANY_MOD,           Button2, selpaste,       {.i = 0},          1 },
@@ -238,7 +238,7 @@ static MouseShortcut mshortcuts[] = {
 	{ XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"}      },
 };
 
-/* Internal keyboard shortcuts. */
+/* Interne Tastatur-Shortcuts. */
 #define MODKEY Mod1Mask
 #define TERMMOD (Mod1Mask|ShiftMask)
 
@@ -247,7 +247,7 @@ static char *copyurlcmd[] = { "/bin/sh", "-c", "st-urlhandler -c", "externalpipe
 static char *copyoutput[] = { "/bin/sh", "-c", "st-copyout", "externalpipe", NULL };
 
 static Shortcut shortcuts[] = {
-	/* mask                 keysym          function        argument */
+	/* Maske                Keysym          Funktion        Argument */
 	{ XK_ANY_MOD,           XK_Break,       sendbreak,      {.i =  0} },
 	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
 	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
@@ -286,44 +286,44 @@ static Shortcut shortcuts[] = {
 };
 
 /*
- * Special keys (change & recompile st.info accordingly)
+ * Spezialtasten (st.info entsprechend ändern & neu kompilieren)
  *
- * Mask value:
- * * Use XK_ANY_MOD to match the key no matter modifiers state
- * * Use XK_NO_MOD to match the key alone (no modifiers)
- * appkey value:
- * * 0: no value
- * * > 0: keypad application mode enabled
+ * Maskenwert:
+ * * Verwende XK_ANY_MOD, um die Taste unabhängig vom Modifier-Status zu matchen
+ * * Verwende XK_NO_MOD, um die Taste allein zu matchen (keine Modifier)
+ * appkey-Wert:
+ * * 0: kein Wert
+ * * > 0: Keypad-Anwendungsmodus aktiviert
  * *   = 2: term.numlock = 1
- * * < 0: keypad application mode disabled
- * appcursor value:
- * * 0: no value
- * * > 0: cursor application mode enabled
- * * < 0: cursor application mode disabled
+ * * < 0: Keypad-Anwendungsmodus deaktiviert
+ * appcursor-Wert:
+ * * 0: kein Wert
+ * * > 0: Cursor-Anwendungsmodus aktiviert
+ * * < 0: Cursor-Anwendungsmodus deaktiviert
  *
- * Be careful with the order of the definitions because st searches in
- * this table sequentially, so any XK_ANY_MOD must be in the last
- * position for a key.
+ * Sei vorsichtig mit der Reihenfolge der Definitionen, da st diese
+ * Tabelle sequenziell durchsucht, also muss XK_ANY_MOD immer an der letzten
+ * Position für eine Taste stehen.
  */
 
 /*
- * If you want keys other than the X11 function keys (0xFD00 - 0xFFFF)
- * to be mapped below, add them to this array.
+ * Wenn du andere Tasten als die X11-Funktionstasten (0xFD00 - 0xFFFF)
+ * unten gemappt haben möchtest, füge sie diesem Array hinzu.
  */
 static KeySym mappedkeys[] = { -1 };
 
 /*
- * State bits to ignore when matching key or button events.  By default,
- * numlock (Mod2Mask) and keyboard layout (XK_SWITCH_MOD) are ignored.
+ * Statusbits, die beim Matchen von Tasten- oder Mausereignissen ignoriert werden.
+ * Standardmäßig werden Numlock (Mod2Mask) und Tastaturlayout (XK_SWITCH_MOD) ignoriert.
  */
 static uint ignoremod = Mod2Mask|XK_SWITCH_MOD;
 
 /*
- * This is the huge key array which defines all compatibility to the Linux
- * world. Please decide about changes wisely.
+ * Dies ist das große Tasten-Array, das die gesamte Kompatibilität zur Linux-Welt
+ * definiert. Bitte entscheide über Änderungen mit Bedacht.
  */
 static Key key[] = {
-	/* keysym           mask            string      appkey appcursor */
+	/* keysym           Maske           String      appkey appcursor */
 	{ XK_KP_Home,       ShiftMask,      "\033[2J",       0,   -1},
 	{ XK_KP_Home,       ShiftMask,      "\033[1;2H",     0,   +1},
 	{ XK_KP_Home,       XK_ANY_MOD,     "\033[H",        0,   -1},
@@ -536,19 +536,19 @@ static Key key[] = {
 };
 
 /*
- * Selection types' masks.
- * Use the same masks as usual.
- * Button1Mask is always unset, to make masks match between ButtonPress.
- * ButtonRelease and MotionNotify.
- * If no match is found, regular selection is used.
+ * Masken für Auswahltypen.
+ * Verwende die gleichen Masken wie üblich.
+ * Button1Mask ist immer nicht gesetzt, damit Masken zwischen ButtonPress,
+ * ButtonRelease und MotionNotify übereinstimmen.
+ * Wenn keine Übereinstimmung gefunden wird, wird reguläre Auswahl verwendet.
  */
 static uint selmasks[] = {
 	[SEL_RECTANGULAR] = Mod1Mask,
 };
 
 /*
- * Printable characters in ASCII, used to estimate the advance width
- * of single wide characters.
+ * Druckbare Zeichen in ASCII, verwendet um die Vorschubbreite
+ * von einfach breiten Zeichen zu schätzen.
  */
 
 static char ascii_printable[] =
