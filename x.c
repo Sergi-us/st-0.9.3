@@ -832,9 +832,22 @@ xloadalpha(void)
 {
 	float const usedAlpha = focused ? alpha : alphaUnfocus;
 	if (opt_alpha) alpha = strtof(opt_alpha, NULL);
+	
+	/* Setze Alpha für defaultbg */
 	dc.col[defaultbg].color.alpha = (unsigned short)(0xffff * usedAlpha);
 	dc.col[defaultbg].pixel &= 0x00FFFFFF;
 	dc.col[defaultbg].pixel |= (unsigned char)(0xff * usedAlpha) << 24;
+	
+	/* Setze Alpha für ALLE Farben (für inverse/highlight Hintergründe) */
+	for (int i = 0; i < MIN(dc.collen, 256); i++) {
+		if (i == defaultbg)
+			continue; /* schon gesetzt */
+		if (dc.col[i].pixel == 0)
+			continue; /* nicht initialisiert */
+		dc.col[i].color.alpha = (unsigned short)(0xffff * usedAlpha);
+		dc.col[i].pixel &= 0x00FFFFFF;
+		dc.col[i].pixel |= (unsigned char)(0xff * usedAlpha) << 24;
+	}
 }
 
 void
