@@ -1,0 +1,28 @@
+#!/bin/sh
+# st-embedintabbed - Bettet das aktuelle st-Fenster in tabbed ein
+# Nutzung: Wird von st via externalpipe aufgerufen (Alt+Shift+T)
+
+# Das aktuelle st Window-ID (wird von st als WINDOWID Environment-Variable gesetzt)
+current_window="$WINDOWID"
+
+# Prüfe ob xdotool installiert ist
+if ! command -v xdotool >/dev/null 2>&1; then
+	notify-send "st-embedintabbed" "xdotool nicht gefunden! Installiere: sudo apt install xdotool"
+	exit 1
+fi
+
+# Erstelle ein neues tabbed-Fenster und fange die XID ab
+tabbed_xid=$(tabbed -cdn "tabbed-st" st -w 2>&1 | grep -o '0x[0-9a-f]*' | head -1)
+
+if [ -z "$tabbed_xid" ]; then
+	notify-send "st-embedintabbed" "Konnte tabbed nicht starten"
+	exit 1
+fi
+
+# Warte kurz bis tabbed bereit ist
+sleep 0.1
+
+# Reparent das aktuelle st-Fenster in tabbed
+xdotool windowreparent "$current_window" "$tabbed_xid"
+
+exit 0
