@@ -228,14 +228,14 @@ ResourcePref resources[] = {
  * Achtung: Das Überladen von Button1 deaktiviert die Auswahl.
  */
 static MouseShortcut mshortcuts[] = {
-	/* Maske                Taste    Funktion        Argument       Release */
-	{ XK_NO_MOD,            Button4, kscrollup,      {.i = 1}           },
-	{ XK_NO_MOD,            Button5, kscrolldown,    {.i = 1}           },
-	{ XK_ANY_MOD,           Button2, selpaste,       {.i = 0},          1 },
-	{ ShiftMask,            Button4, ttysend,        {.s = "\033[5;2~"} },
-	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"}      },
-	{ ShiftMask,            Button5, ttysend,        {.s = "\033[6;2~"} },
-	{ XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"}      },
+	/* Maske                Taste    Funktion        Argument       Release  Altscrn */
+	{ XK_ANY_MOD,           Button4, kscrollup,      {.i = 1},          0,      -1 },
+	{ XK_ANY_MOD,           Button5, kscrolldown,    {.i = 1},          0,      -1 },
+	{ XK_ANY_MOD,           Button2, selpaste,       {.i = 0},          1,       0 },
+	{ ShiftMask,            Button4, ttysend,        {.s = "\033[5;2~"},0,       0 },
+	{ ShiftMask,            Button5, ttysend,        {.s = "\033[6;2~"},0,       0 },
+	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"},     0,       0 },
+	{ XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"},     0,       0 },
 };
 
 /* Interne Tastatur-Shortcuts. */
@@ -263,8 +263,6 @@ static Shortcut shortcuts[] = {
 	{ MODKEY,               XK_v,           clippaste,      {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
-	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
-	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
 	{ MODKEY,               XK_Page_Up,     kscrollup,      {.i = -1} },
 	{ MODKEY,               XK_Page_Down,   kscrolldown,    {.i = -1} },
 	{ MODKEY,               XK_k,           kscrollup,      {.i =  1} },
@@ -284,7 +282,7 @@ static Shortcut shortcuts[] = {
 	{ MODKEY,               XK_l,           externalpipe,   {.v = openurlcmd } },
 	{ MODKEY,               XK_y,           externalpipe,   {.v = copyurlcmd } },
 	{ MODKEY,               XK_o,           externalpipe,   {.v = copyoutput } },
-	{ TERMMOD,              XK_Return,      externalpipe,   {.v = embedintabbed } },
+	{ ControlMask|ShiftMask, XK_Return,     externalpipe,   {.v = embedintabbed } },
 };
 
 /*
