@@ -3,10 +3,13 @@
 /*
  * Aussehen
  *
+ * TODO Patch für OSC 52 hinzufügen für zwischenablage für remote server
+ * TODO Schriftendurcheinander in der Fontconfig beheben
+ * TODO Automatischen Farbwechsel hinzufügen
  * Schriftart: siehe http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
 static char *font = { "JetBrainsMono NF:style=Light:size=10:antialias=true:autohint=false:hintstyle=hintfull" };
-static char *font2[] = { "OpenMoji:size=11:antialias=true:autohint=true" };
+static char *font2[] = { "OpenMoji:size=12:antialias=true:autohint=true" };
 static int borderpx = 0;
 
 /*

@@ -1,19 +1,24 @@
 #!/bin/sh
 
+# Menü-Befehl definieren (Zentrale Stelle für einfache Anpassungen)
+rofi_menu() {
+	rofi -dmenu -i -location 0 -theme-str 'window { width: 90%; } listview { lines: 10; }' "$@"
+}
+
 urlregex="(((http|https|gopher|gemini|ftp|ftps|git)://|www\\.)[a-zA-Z0-9.]*[:;a-zA-Z0-9./+@$&%?$\#=_~-]*)|((magnet:\\?xt=urn:btih:)[a-zA-Z0-9]*)"
 
-urls="$(sed 's/.*│//g' | tr -d '\n' | # First remove linebreaks and mutt sidebars:
-	grep -aEo "$urlregex" | # grep only urls as defined above.
-	uniq | # Ignore neighboring duplicates.
+urls="$(sed 's/.*│//g' | tr -d '\n' | # Zuerst Zeilenumbrüche und mutt-Seitenleisten entfernen:
+	grep -aEo "$urlregex" | # Nur URLs wie oben definiert herausfiltern.
+	uniq | # Benachbarte Duplikate ignorieren.
 	sed "s/\(\.\|,\|;\|\!\\|\?\)$//;
-	s/^www./http:\/\/www\./")" # xdg-open will not detect url without http
+	s/^www./http:\/\/www\./")" # xdg-open erkennt keine URLs ohne http
 
 [ -z "$urls" ] && exit 1
 
 while getopts "hoc" o; do case "${o}" in
-	h) printf "Optional arguments for custom use:\\n  -c: copy\\n  -o: xdg-open\\n  -h: Show this message\\n" && exit 1 ;;
-	o) chosen="$(echo "$urls" | dmenu -i -p 'Folge welcher Url?' -l 10)"
+	h) printf "Optionale Argumente für benutzerdefinierte Verwendung:\\n  -c: kopieren\\n  -o: xdg-open\\n  -h: Diese Nachricht anzeigen\\n" && exit 1 ;;
+	o) chosen="$(echo "$urls" | rofi_menu -p 'Folge welcher Url?')"
 	setsid xdg-open "$chosen" >/dev/null 2>&1 & ;;
-	c) echo "$urls" | dmenu -i -p 'Kopiere welche Url?' -l 10 | tr -d '\n' | xclip -selection clipboard ;;
-	*) printf "Invalid option: -%s\\n" "$OPTARG" && exit 1 ;;
+	c) echo "$urls" | rofi_menu -p 'Kopiere welche Url?' | tr -d '\n' | xclip -selection clipboard ;;
+	*) printf "Ungültige Option: -%s\\n" "$OPTARG" && exit 1 ;;
 esac done

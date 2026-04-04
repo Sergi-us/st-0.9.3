@@ -8,6 +8,7 @@ st
 *.rej
 *.swp
 *.swo
+*.bac
 *~
 *.vanilla
 
