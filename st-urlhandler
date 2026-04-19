@@ -15,10 +15,16 @@ urls="$(sed 's/.*│//g' | tr -d '\n' | # Zuerst Zeilenumbrüche und mutt-Seiten
 
 [ -z "$urls" ] && exit 1
 
-while getopts "hoc" o; do case "${o}" in
-	h) printf "Optionale Argumente für benutzerdefinierte Verwendung:\\n  -c: kopieren\\n  -o: xdg-open\\n  -h: Diese Nachricht anzeigen\\n" && exit 1 ;;
+# HINWEIS: Die Option -l (linkhandler) setzt voraus, dass das Skript
+# 'linkhandler' im System installiert und im $PATH verfügbar ist.
+# In der SARBS-Umgebung befindet sich dieses Skript üblicherweise in:
+# ~/.local/bin/linkhandler
+while getopts "hocl" o; do case "${o}" in
+	h) printf "Optionale Argumente für benutzerdefinierte Verwendung:\\n  -c: kopieren\\n  -o: xdg-open\\n  -l: an linkhandler übergeben\\n  -h: Diese Nachricht anzeigen\\n" && exit 1 ;;
 	o) chosen="$(echo "$urls" | rofi_menu -p 'Folge welcher Url?')"
 	setsid xdg-open "$chosen" >/dev/null 2>&1 & ;;
+	l) chosen="$(echo "$urls" | rofi_menu -p 'Linkhandler für welche Url?')"
+	setsid linkhandler "$chosen" >/dev/null 2>&1 & ;;
 	c) echo "$urls" | rofi_menu -p 'Kopiere welche Url?' | tr -d '\n' | xclip -selection clipboard ;;
 	*) printf "Ungültige Option: -%s\\n" "$OPTARG" && exit 1 ;;
 esac done

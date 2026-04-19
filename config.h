@@ -8,8 +8,8 @@
  * TODO Automatischen Farbwechsel hinzufügen
  * Schriftart: siehe http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = { "JetBrainsMono NF:style=Light:size=10:antialias=true:autohint=false:hintstyle=hintfull" };
-static char *font2[] = { "OpenMoji:size=12:antialias=true:autohint=true" };
+static char *font = { "JetBrainsMono NF:style=Light:size=9:antialias=true:autohint=false:hintstyle=hintfull" };
+static char *font2[] = { "OpenMoji:size=10:antialias=true:autohint=true" };
 static int borderpx = 0;
 
 /*
@@ -247,6 +247,7 @@ static MouseShortcut mshortcuts[] = {
 
 static char *openurlcmd[] = { "/bin/sh", "-c", "st-urlhandler -o", "externalpipe", NULL };
 static char *copyurlcmd[] = { "/bin/sh", "-c", "st-urlhandler -c", "externalpipe", NULL };
+static char *linkurlcmd[] = { "/bin/sh", "-c", "st-urlhandler -l", "externalpipe", NULL };
 static char *copyoutput[] = { "/bin/sh", "-c", "st-copyout", "externalpipe", NULL };
 static char *embedintabbed[] = { "/bin/sh", "-c", "st-embedintabbed", "externalpipe", NULL };
 
@@ -283,6 +284,7 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_U,           zoom,           {.f = +2} },
 	{ TERMMOD,              XK_D,           zoom,           {.f = -2} },
 	{ MODKEY,               XK_l,           externalpipe,   {.v = openurlcmd } },
+	{ MODKEY,				XK_x,			externalpipe,   {.v = linkurlcmd } },
 	{ MODKEY,               XK_y,           externalpipe,   {.v = copyurlcmd } },
 	{ MODKEY,               XK_o,           externalpipe,   {.v = copyoutput } },
 	{ ControlMask|ShiftMask, XK_Return,     externalpipe,   {.v = embedintabbed } },

@@ -1,36 +1,36 @@
-# 💻 st - Simple Terminal
+#  st - Simple Terminal (V0.9.3 vom 2025-08-09)
 
 **Suckless Terminal Emulator für SARBS**
 
-> **🔄 Umzug zu Codeberg**: Die aktive Entwicklung und Kollaboration findet jetzt auf [Codeberg](https://codeberg.org/Sergius/st) statt. GitHub dient nur als Mirror.
+> **󰓦 Umzug zu Codeberg**: Die aktive Entwicklung und Kollaboration findet jetzt auf [Codeberg](https://codeberg.org/Sergius/st) statt. GitHub dient nur als Mirror.
 > 
-> **📦 Hauptprojekt**: [SARBS](https://codeberg.org/Sergius/SARBS) - [Homepage](https://sarbs.xyz/sarbs/)
+> ** Hauptprojekt**: [SARBS(Codeberg)](https://codeberg.org/Sergius/SARBS) - [Homepage](https://sarbs.xyz/sarbs/)
+> **Originalcode:** [ST(suckless.org)](https://st.suckless.org/)
 
 Minimalistischer Terminal Emulator mit praktischen Patches und voller Tastatursteuerung.
 
-## ✨ Features
+##  Features
 
 ### URL-Handling & Zwischenablage
-- **URL-Handling** via dmenu:
+- **URL-Handling** via Rofi:
   - `alt-l` - URLs öffnen
   - `alt-y` - URLs in Zwischenablage kopieren
-- **Command-Output** kopieren: `alt-o`
+- **Command-Output** kopieren via Rofi: `alt-o`
 - **Copy/Paste**: `alt-c` (kopieren), `alt-v` oder `shift-insert` (einfügen)
 
-### Navigation & Scrollback
-- **Scrollback**: `alt-↑/↓`, `alt-pageup/down` oder `shift` beim Scrollen
-- **Vim-Bindings**:
+### Navigation & Scrollback über Vim-Bindings:
   - `alt-k/j` - Zeile für Zeile
   - `alt-u/d` - Halbe Seite
+  - oder `shift` beim Scrollen
 
 ### Darstellung
-- **Zoom**: `alt+shift+↑/↓` oder `j/k`, `alt-home` für Reset
+- **Zoom**: `alt+shift+j/k` oder `↑/↓`, `alt+shift+Pos1` für Reset
 - **Transparenz** dynamisch anpassbar: `alt-a` (erhöhen), `alt-s` (verringern)
-- **Xresources** und **pywal**-Support für dynamische Farben
+- **Xresources** und **hellwal/paywal**-Support für dynamische Farben
 - **Ligatures** - Font-Ligaturen Support
 - **Harfbuzz** - Verbesserte Font-Rendering-Engine
 
-## ⚡ Installation
+##  Installation
 
 ### Automatisch mit SARBS (empfohlen)
 Wird durch das [SARBS-Installationsskript](https://codeberg.org/Sergius/SARBS) automatisch eingerichtet.
@@ -48,9 +48,8 @@ sudo make install
 - `fontconfig` - Font-Konfiguration
 - `libX11` - X11 Client Library
 - `libXft` - X FreeType Library
-- **Für Transparenz**: Composite Manager (z.B. `picom`, `xcompmgr`)
 
-## 🛠️ Konfiguration
+##  Konfiguration
 
 ### Via Xresources
 
@@ -79,14 +78,14 @@ xrdb ~/.Xresources
 
 ### Farbpriorität
 
-1. **pywal** Farben (wenn aktiv)
+1. **hellwal** Farben (wenn aktiv)
 2. **Xresources** Farben
 3. **Gruvbox** (Fallback in config.h)
 
 > **Hinweis**: pywal deaktiviert Transparenz bei existierenden Fenstern. Neu geöffnete Fenster nutzen die definierte Transparenz.
 
-## 🎨 Integration mit pywal
-
+## 🎨 Integration mit hellwal/pywal
+st funktioniert automatisch mit [hellwal](https://github.com/danihek/hellwal):
 st funktioniert automatisch mit [pywal](https://github.com/dylanaraps/pywal):
 
 ```bash
@@ -95,7 +94,7 @@ wal -i /pfad/zum/bild.jpg
 
 Farben werden sofort übernommen!
 
-## 📁 Anpassungen in config.h
+##  Anpassungen in config.h
 
 Für erweiterte Konfiguration siehe [config.h](config.h):
 - Schriftart und -größe
@@ -114,7 +113,6 @@ sudo make clean install
 - **[SARBS Hauptprojekt](https://codeberg.org/Sergius/SARBS)** - Auto-Rice Bootstrapping
 - **[dotfiles](https://codeberg.org/Sergius/dotfiles)** - Konfigurationsdateien
 - **[dwm](https://codeberg.org/Sergius/dwm)** - Window Manager
-- **[dmenu](https://codeberg.org/Sergius/dmenu)** - Application Launcher
 - **[dwmblocks-async](https://codeberg.org/Sergius/dwmblocks-async)** - Statusbar
 - **[surf](https://codeberg.org/Sergius/surf)** - Web Browser
 
