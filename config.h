@@ -8,9 +8,12 @@
  * TODO Automatischen Farbwechsel hinzufügen
  * Schriftart: siehe http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = { "JetBrainsMono NF:style=Light:size=9:antialias=true:autohint=false:hintstyle=hintfull" };
+static char *font = { "JetBrainsMono NF:style=Regular:size=9:antialias=true:autohint=false:hintstyle=hintfull" };
+/*
+static char *font = { "AdwaitaMono Nerd Font Mono:style=Regular:size=9:antialias=true:autohint=false:hintstyle=hintfull" };
+*/
 static char *font2[] = { "OpenMoji:size=10:antialias=true:autohint=true" };
-static int borderpx = 0;
+static int borderpx = 2;
 
 /*
  * Welches Programm von st ausgeführt wird, hängt von diesen Vorrangregeln ab:
@@ -114,8 +117,10 @@ float alpha = 0.85;
 float alphaOffset = 0.0;
 float alphaUnfocus;
 
-/* Terminal-Farben (erste 16 werden in Escape-Sequenzen verwendet) */
-static const char *colorname[] = {
+/* Terminal-Farben (erste 16 werden in Escape-Sequenzen verwendet)
+ * Hinweis: char* statt const char* damit Xresources-Werte dynamisch
+ * zugewiesen und freigegeben werden können */
+static char *colorname[] = {
 	"#282828", /* harter Kontrast: #1d2021 / weicher Kontrast: #32302f */
 	"#cc241d",
 	"#98971a",

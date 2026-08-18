@@ -210,6 +210,9 @@ static int match(uint, uint);
 static void run(void);
 static void usage(void);
 
+/* Xresources-Konfiguration laden/neu laden */
+void config_init(void);
+
 static void (*handler[LASTEvent])(XEvent *) = {
 	[KeyPress] = kpress,
 	[ClientMessage] = cmessage,
@@ -858,6 +861,10 @@ xloadcols(void)
 	int i;
 	static int loaded;
 	Color *cp;
+
+	/* Xresources neu laden damit Farbänderungen (z.B. durch hellwal/pywal)
+	 * bei Focus-Wechsel oder Resize übernommen werden */
+	config_init();
 
 	if (!loaded) {
 		dc.collen = 1 + (defaultbg = MAX(LEN(colorname), 256));
@@ -2256,7 +2263,10 @@ resource_load(XrmDatabase db, char *name, enum resource_type rtype, void *dst)
 
 	switch (rtype) {
 	case STRING:
-		*sdst = ret.addr;
+		/* Alten String freigeben und neuen duplizieren */
+		if (*sdst && **sdst)
+			free(*sdst);
+		*sdst = strdup(ret.addr);
 		break;
 	case INTEGER:
 		*idst = strtoul(ret.addr, NULL, 10);
@@ -2271,18 +2281,56 @@ resource_load(XrmDatabase db, char *name, enum resource_type rtype, void *dst)
 void
 config_init(void)
 {
-	char *resm;
-	XrmDatabase db;
+	char *resm = NULL;
+	static XrmDatabase db;
+	static int initialized = 0;
 	ResourcePref *p;
+	Atom type;
+	int format;
+	unsigned long nitems, bytes_after;
+	unsigned char *data;
 
 	XrmInitialize();
-	resm = XResourceManagerString(xw.dpy);
-	if (!resm)
-		return;
+
+	/* Beim ersten Aufruf: Initial-Werte aus config.h duplizieren
+	 * damit sie später mit free() freigegeben werden können */
+	if (!initialized) {
+		for (p = resources; p < resources + LEN(resources); p++) {
+			if (p->type == STRING) {
+				char **s = p->dst;
+				if (*s)
+					*s = strdup(*s);
+			}
+		}
+		initialized = 1;
+	}
+
+	/* Alte Datenbank freigeben */
+	if (db)
+		XrmDestroyDatabase(db);
+
+	/* Xresources direkt vom X-Server lesen (nicht den gecachten Wert
+	 * von XResourceManagerString verwenden). Dadurch werden Änderungen
+	 * durch xrdb -merge (z.B. von hellwal/pywal) sofort erkannt. */
+	XGetWindowProperty(xw.dpy, XDefaultRootWindow(xw.dpy),
+		XInternAtom(xw.dpy, "RESOURCE_MANAGER", False),
+		0, LONG_MAX, False, XA_STRING, &type, &format,
+		&nitems, &bytes_after, &data);
+	if (data) {
+		resm = (char *)data;
+	} else {
+		resm = XResourceManagerString(xw.dpy);
+		if (!resm)
+			return;
+	}
 
 	db = XrmGetStringDatabase(resm);
 	for (p = resources; p < resources + LEN(resources); p++)
 		resource_load(db, p->name, p->type, p->dst);
+
+	/* Von XGetWindowProperty allokierten Speicher freigeben */
+	if (data)
+		XFree(data);
 }
 
 void
