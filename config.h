@@ -1,16 +1,16 @@
 /* Siehe LICENSE-Datei für Urheber- und Lizenzdetails. */
+// ## 2026-08-22
 
 /*
  * Aussehen
  *
  * TODO Patch für OSC 52 hinzufügen für zwischenablage für remote server
  * TODO Schriftendurcheinander in der Fontconfig beheben
- * TODO Automatischen Farbwechsel hinzufügen
  * Schriftart: siehe http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = { "JetBrainsMono NF:style=Regular:size=9:antialias=true:autohint=false:hintstyle=hintfull" };
+static char *font = { "JetBrainsMono NF:style=ExtraLight:size=10:antialias=true:autohint=false:hintstyle=hintfull" };
 /*
-static char *font = { "AdwaitaMono Nerd Font Mono:style=Regular:size=9:antialias=true:autohint=false:hintstyle=hintfull" };
+static char *font = { "AdwaitaMono Nerd Font Mono:style=Regular:size=10:antialias=true:autohint=false:hintstyle=hintfull" };
 */
 static char *font2[] = { "OpenMoji:size=10:antialias=true:autohint=true" };
 static int borderpx = 2;
@@ -38,7 +38,6 @@ static float chscale = 1.0;
 
 /*
  * Wort-Trennzeichen
- *
  * Fortgeschritteneres Beispiel: L" `'\"()[]{}"
  */
 wchar_t *worddelimiters = L" ";
