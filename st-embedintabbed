@@ -1,6 +1,6 @@
 #!/bin/sh
 # st-embedintabbed - Bettet das aktuelle st-Fenster in tabbed ein
-# Nutzung: Wird von st via externalpipe aufgerufen (Alt+Shift+T)
+# Nutzung: Wird von st via externalpipe aufgerufen (Strg+Shift+Enter)
 
 # Das aktuelle st Window-ID (wird von st als WINDOWID Environment-Variable gesetzt)
 current_window="$WINDOWID"
